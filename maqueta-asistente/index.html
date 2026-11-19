@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aurora · Asistente de la Biblioteca Aurora</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Barra de menú superior estilo macOS -->
+  <div class="barra-menu" aria-hidden="true">
+    <span class="logo-menu">◉</span>
+    <strong>Aurora</strong>
+    <span>Archivo</span><span>Edición</span><span>Ver</span><span>Ayuda</span>
+    <span class="derecha">jue 19 nov · 8:32 a. m.</span>
+  </div>
+
+  <!-- ================= VENTANA ================= -->
+  <div class="ventana">
+
+    <!-- ===== BARRA LATERAL: HISTORIAL POR TEMAS ===== -->
+    <aside class="lateral" aria-label="Historial de conversaciones">
+      <div class="semaforo" aria-hidden="true">
+        <span class="rojo"></span><span class="amarillo"></span><span class="verde"></span>
+      </div>
+
+      <div class="buscador">
+        <span>🔍</span>
+        <input type="search" placeholder="Buscar en el historial" aria-label="Buscar en el historial">
+      </div>
+
+      <a href="#" class="nueva">✎ Nueva conversación</a>
+
+      <nav class="historial">
+        <h2 class="grupo">💬 Ahora</h2>
+        <a href="#" class="item actual">
+          <span class="item-titulo">Conversación nueva</span>
+          <span class="item-meta">Ahora</span>
+        </a>
+
+        <h2 class="grupo">📚 Préstamos</h2>
+        <a href="#conv-prestamos" class="item">
+          <span class="item-titulo">¿Cuántos libros puedo llevar?</span>
+          <span class="item-meta">Ayer</span>
+        </a>
+
+        <h2 class="grupo">🕒 Horarios</h2>
+        <a href="#conv-horarios" class="item">
+          <span class="item-titulo">¿Abren los domingos?</span>
+          <span class="item-meta">12 nov</span>
+        </a>
+
+        <h2 class="grupo">🪑 Salas de estudio</h2>
+        <a href="#conv-salas" class="item">
+          <span class="item-titulo">Reservar sala para 4</span>
+          <span class="item-meta">8 nov</span>
+        </a>
+      </nav>
+
+      <div class="perfil">
+        <span class="avatar-mini">S</span>
+        <div>
+          <strong>Simón S.</strong>
+          <span>Usuario de la biblioteca</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ===== ÁREA PRINCIPAL ===== -->
+    <main class="principal">
+
+      <!-- Barra de herramientas -->
+      <header class="toolbar">
+        <div class="titulo">
+          <h1>Aurora</h1>
+          <p class="subtitulo">Asistente de la Biblioteca Aurora</p>
+        </div>
+
+        <!-- 1. Letrero transparente: con qué IA hablas -->
+        <a href="#ia" class="letrero-ia">
+          <span class="chip-ia">IA</span>
+          <span>Estás hablando con <strong>Llama 3.1 de Meta</strong></span>
+          <span class="mas">ⓘ</span>
+        </a>
+
+      </header>
+
+      <!-- Conversación actual: empieza limpia, solo con el saludo -->
+      <section class="chat" aria-label="Conversación actual">
+        <p class="hora">Hoy 8:37 a. m.</p>
+
+        <div class="mensaje asistente saludo">
+          ¡Hola! Soy <strong>Aurora</strong> 📖 ¿En qué puedo ayudarte hoy?
+          <p class="aviso">⚠️ Respuestas generadas con IA: puedo equivocarme. Verifica fechas y multas con el personal de la biblioteca.</p>
+        </div>
+
+        <!-- Recorrido de ejemplo: aparece cuando el usuario pregunta (con :target) -->
+        <div id="demo" class="demo">
+          <div class="mensaje usuario">¿Tienen «Cien años de soledad» disponible?</div>
+
+          <div class="mensaje asistente">
+            Sí ✅ Hay <strong>2 ejemplares disponibles</strong> en la Sala de Literatura, estante L-12.
+            <p class="fuente">📎 Fuente: <a href="#fuente">Catálogo en línea Aurora</a></p>
+          </div>
+
+          <div class="acciones">
+            <a href="#demo">📌 Reservar</a>
+            <a href="#demo">📍 Cómo llegar al estante</a>
+          </div>
+
+          <div class="mensaje usuario">¿Cuánto debo de multa?</div>
+
+          <!-- Error honesto + salida a una persona SOLO cuando hace falta -->
+          <div class="mensaje asistente error">
+            <strong>No tengo acceso a tu cuenta.</strong>
+            No puedo ver multas ni datos personales. Para eso necesitas a una persona del equipo.
+            <a class="humano" href="#persona">🙋 Conectar con un bibliotecario</a>
+          </div>
+
+          <p class="guardado">💾 Conversación guardada en tu historial, en <strong>Catálogo</strong></p>
+        </div>
+      </section>
+
+      <!-- Sugerencias + formulario -->
+      <div class="zona-pregunta">
+        <nav class="sugerencias" aria-label="Preguntas sugeridas">
+          <a href="#demo">🔎 ¿Tienen «Cien años de soledad»?</a>
+          <a href="#demo">🕒 Horarios</a>
+          <a href="#demo">📚 Renovar préstamo</a>
+          <a href="#demo">🪑 Reservar sala</a>
+        </nav>
+
+        <!-- Al enviar, se muestra el recorrido de ejemplo -->
+        <form class="caja-pregunta" action="#demo">
+          <label for="pregunta">Escribe tu pregunta</label>
+          <input id="pregunta" type="text" placeholder="Pregúntale a Aurora…">
+          <button type="submit" aria-label="Enviar pregunta">↑</button>
+        </form>
+        <p class="nota">Aurora es una IA y puede cometer errores. Verifica la información importante.</p>
+      </div>
+
+      <!-- ===== CONVERSACIONES GUARDADAS (se muestran con :target) ===== -->
+      <section id="conv-prestamos" class="conv-guardada" aria-label="Conversación guardada: Préstamos">
+        <header class="toolbar">
+          <div class="titulo"><h1>¿Cuántos libros puedo llevar?</h1><p class="subtitulo">📚 Préstamos · Ayer · Guardada</p></div>
+          <a href="#" class="boton secundario">Volver a la actual</a>
+        </header>
+        <div class="chat">
+          <div class="mensaje usuario">¿Cuántos libros puedo llevar a la vez?</div>
+          <div class="mensaje asistente">Hasta <strong>5 libros</strong> por 15 días, renovables una vez.
+            <p class="fuente">📎 Fuente: <a href="#">Reglamento de préstamos</a></p>
+          </div>
+          <div class="mensaje usuario">¿Y las revistas?</div>
+          <div class="mensaje asistente">Las revistas solo se consultan en sala, no se prestan.
+            <p class="fuente">📎 Fuente: <a href="#">Reglamento de préstamos</a></p>
+          </div>
+        </div>
+        <div class="pie-guardada"><a href="#" class="boton">Continuar esta conversación</a></div>
+      </section>
+
+      <section id="conv-horarios" class="conv-guardada" aria-label="Conversación guardada: Horarios">
+        <header class="toolbar">
+          <div class="titulo"><h1>¿Abren los domingos?</h1><p class="subtitulo">🕒 Horarios · 12 nov · Guardada</p></div>
+          <a href="#" class="boton secundario">Volver a la actual</a>
+        </header>
+        <div class="chat">
+          <div class="mensaje usuario">¿Abren los domingos?</div>
+          <div class="mensaje asistente">Sí, los domingos de <strong>9:00 a. m. a 1:00 p. m.</strong>
+            <p class="fuente">📎 Fuente: <a href="#">Horarios oficiales</a></p>
+          </div>
+        </div>
+        <div class="pie-guardada"><a href="#" class="boton">Continuar esta conversación</a></div>
+      </section>
+
+      <section id="conv-salas" class="conv-guardada" aria-label="Conversación guardada: Salas de estudio">
+        <header class="toolbar">
+          <div class="titulo"><h1>Reservar sala para 4</h1><p class="subtitulo">🪑 Salas de estudio · 8 nov · Guardada</p></div>
+          <a href="#" class="boton secundario">Volver a la actual</a>
+        </header>
+        <div class="chat">
+          <div class="mensaje usuario">Quiero reservar una sala para 4 personas.</div>
+          <div class="mensaje asistente error"><strong>No puedo hacer reservas.</strong> Solo te informo; la reserva la hace el personal.
+            <a class="humano" href="#persona">🙋 Conectar con un bibliotecario</a>
+          </div>
+        </div>
+        <div class="pie-guardada"><a href="#" class="boton">Continuar esta conversación</a></div>
+      </section>
+    </main>
+  </div>
+
+
+  <!-- ================= VENTANAS EMERGENTES (:target) ================= -->
+  <div id="ia" class="modal">
+    <a href="#" class="fondo" aria-label="Cerrar"></a>
+    <div class="dialogo">
+      <div class="icono-grande">🤖</div>
+      <h2>Estás hablando con una IA</h2>
+      <p class="sub">Aurora no es una persona. Así funciona:</p>
+      <ul class="lista">
+        <li><span>Modelo</span><span>Llama 3.1 8B</span></li>
+        <li><span>Creado por</span><span>Meta · modelo abierto y gratuito</span></li>
+        <li><span>Sabe de</span><span>Catálogo, horarios y reglamento</span></li>
+        <li><span>No puede</span><span>Ver tu cuenta, multas ni hacer pagos</span></li>
+      </ul>
+      <a href="#" class="boton">Entendido</a>
+    </div>
+  </div>
+
+  <div id="fuente" class="modal">
+    <a href="#" class="fondo" aria-label="Cerrar"></a>
+    <div class="dialogo">
+      <div class="icono-grande">📎</div>
+      <h2>Catálogo en línea Aurora</h2>
+      <p class="sub">Fuente oficial · Actualizado hoy 7:00 a. m.</p>
+      <ul class="lista">
+        <li><span>Título</span><span>Cien años de soledad</span></li>
+        <li><span>Autor</span><span>Gabriel García Márquez</span></li>
+        <li class="resaltado"><span>Disponibles</span><span>2 de 3</span></li>
+        <li><span>Ubicación</span><span>Sala Literatura · L-12</span></li>
+      </ul>
+      <a href="#" class="boton">Volver al chat</a>
+    </div>
+  </div>
+
+  <div id="persona" class="modal">
+    <a href="#" class="fondo" aria-label="Cerrar"></a>
+    <div class="dialogo">
+      <div class="icono-grande">👩‍💼</div>
+      <h2>Te conectamos con un bibliotecario</h2>
+      <p class="sub">Atención de lunes a sábado, 8:00 a. m. – 6:00 p. m.</p>
+      <a href="#" class="boton">💬 Chatear con una persona</a>
+      <a href="#" class="boton secundario">📞 Llamar a la biblioteca</a>
+      <a href="#" class="cerrar">Ahora no</a>
+    </div>
+  </div>
+
+</body>
+</html>
